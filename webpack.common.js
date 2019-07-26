@@ -1,11 +1,14 @@
 const path = require("path");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: "development",
-    entry: "./src/app.js",
+    entry: {
+        app: "./src/index.js"
+    },
     output: {
         path: path.resolve(__dirname,"dist"),
-        filename: "dundle.js"
+        filename: "[name].dundle.js"
     },
     module: {
         rules : [
@@ -20,5 +23,14 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new CleanWebpackPlugin({
+        cleanAfterEveryBuildPatterns: ['dist']
+        }),
+        new HtmlWebpackPlugin({
+            title: 'demo webpack App',
+        })
+            ]
+    
 }
